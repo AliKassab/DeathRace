@@ -42,6 +42,7 @@ public class TimerController : MonoBehaviour
     public void restart()
     {
         SceneManager.LoadScene(0);
+        Time.timeScale = 1;
     }
 
     private void GameOver()
