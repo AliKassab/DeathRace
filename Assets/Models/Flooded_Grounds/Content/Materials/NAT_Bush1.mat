@@ -9,8 +9,6 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: NAT_Bush1
   m_Shader: {fileID: 4800000, guid: 8e721f9dd7d2ebe4288001f7b478e7e2, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords:
   - _ALPHATEST_ON
@@ -22,7 +20,6 @@ Material:
   stringTagMap:
     RenderType: TransparentCutout
   disabledShaderPasses: []
-  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
