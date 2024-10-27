@@ -12,15 +12,17 @@ namespace UnityTutorial.Manager
         public bool Run { get; private set; }
 
         public bool TelepathyMode { get; private set; }
-        public bool DoorTrigger { get; private set; }
+        public bool Interaction { get; private set; }
 
         private InputActionMap currentMap;
         private InputAction moveAction;
         private InputAction lookAction;
         private InputAction runAction;
         private InputAction telepathyMode;
+        private InputAction interaction;
 
         private bool telepathyPressedThisFrame;
+        private bool interactionPressedThisFrame;
 
         private void Awake()
         {
@@ -29,16 +31,19 @@ namespace UnityTutorial.Manager
             lookAction = currentMap.FindAction("Look");
             runAction = currentMap.FindAction("Run");
             telepathyMode = currentMap.FindAction("TelepathyMode");
+            interaction = currentMap.FindAction("Interaction");
 
             moveAction.performed += onMove;
             lookAction.performed += onLook;
             runAction.performed += onRun;
             telepathyMode.performed += onTelepathyMode;
+            interaction.performed += onInteraction;
 
             moveAction.canceled += onMove;
             lookAction.canceled += onLook;
             runAction.canceled += onRun;
             telepathyMode.canceled -= onTelepathyMode;
+            interaction.canceled -= onInteraction;
         }
 
         private void onMove(InputAction.CallbackContext context)
@@ -58,8 +63,14 @@ namespace UnityTutorial.Manager
 
         private void onTelepathyMode(InputAction.CallbackContext context)
         {
-            TelepathyMode = true;  // Set to true when pressed
-            telepathyPressedThisFrame = true; // Track if pressed this frame
+            TelepathyMode = true;
+            telepathyPressedThisFrame = true;
+        }
+
+        private void onInteraction(InputAction.CallbackContext context)
+        {
+            Interaction = true;
+            interactionPressedThisFrame = true;
         }
 
         private void OnEnable()
@@ -76,7 +87,17 @@ namespace UnityTutorial.Manager
         {
             if (telepathyPressedThisFrame)
             {
-                telepathyPressedThisFrame = false; // Reset for the next frame
+                telepathyPressedThisFrame = false;
+                return true;
+            }
+            return false;
+        }
+
+        public bool IsInteractionPressedThisFrame()
+        {
+            if (interactionPressedThisFrame)
+            {
+                interactionPressedThisFrame = false;
                 return true;
             }
             return false;
