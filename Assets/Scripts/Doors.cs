@@ -7,7 +7,7 @@ using UnityTutorial.Manager;
 public class Doors : MonoBehaviour
 {
     [SerializeField] Animator doorAnimator;
-    [SerializeField] GameObject doorText;
+    [SerializeField] GameObject doorTextGameObject;
     TextMeshProUGUI doorTMP;
     [SerializeField] AudioSource doorSound;
     [SerializeField] bool isReachable;
@@ -15,7 +15,8 @@ public class Doors : MonoBehaviour
     [SerializeField] bool isOpen = false;
     void Start()
     {   
-        doorTMP = doorText.GetComponent<TextMeshProUGUI>();
+        doorTextGameObject = FindFirstObjectByType<DoorText>(FindObjectsInactive.Include).gameObject;
+        doorTMP = doorTextGameObject.GetComponent<TextMeshProUGUI>();
         isReachable = false;
         inputManager = FindObjectOfType<InputManager>();
     }
@@ -24,7 +25,7 @@ public class Doors : MonoBehaviour
         if (other.gameObject.CompareTag("Reach"))
         {
             isReachable = true;
-            doorText.SetActive(true);
+            doorTextGameObject.SetActive(true);
             if (isOpen)
                 doorTMP.text = "Close";
             else
@@ -36,7 +37,7 @@ public class Doors : MonoBehaviour
         if (other.gameObject.CompareTag("Reach"))
         {
             isReachable = false;
-            doorText.SetActive(false);
+            doorTextGameObject.SetActive(false);
         }
     }
     void Update()
