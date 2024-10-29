@@ -6,17 +6,20 @@ using UnityTutorial.Manager;
 
 public class Doors : MonoBehaviour
 {
-    [SerializeField] Animator doorAnimator;
-    [SerializeField] GameObject doorTextGameObject;
-    TextMeshProUGUI doorTMP;
-    [SerializeField] AudioSource doorSound;
-    [SerializeField] bool isReachable;
+    private Animator doorAnimator;
+    private GameObject doorTextGameObject;
+    private TextMeshProUGUI doorTMP;
+    private AudioSource doorSound;
     private InputManager inputManager;
+
+    [SerializeField] bool isReachable;
     [SerializeField] bool isOpen = false;
     void Start()
     {   
         doorTextGameObject = FindFirstObjectByType<DoorText>(FindObjectsInactive.Include).gameObject;
         doorTMP = doorTextGameObject.GetComponent<TextMeshProUGUI>();
+        doorSound = FindFirstObjectByType<DoorOpenAudio>().gameObject.GetComponent<AudioSource>();
+        doorAnimator = GetComponent<Animator>();
         isReachable = false;
         inputManager = FindObjectOfType<InputManager>();
     }
@@ -27,9 +30,9 @@ public class Doors : MonoBehaviour
             isReachable = true;
             doorTextGameObject.SetActive(true);
             if (isOpen)
-                doorTMP.text = "Close";
+                doorTMP.text = "Close [F]";
             else
-                doorTMP.text = "Open";
+                doorTMP.text = "Open [F]";
         }
     }
     void OnTriggerExit(Collider other)
@@ -46,12 +49,12 @@ public class Doors : MonoBehaviour
         {
             if (isOpen)
             {
-                doorTMP.text = "Close";
+                doorTMP.text = "Close [F]";
                 CloseDoor();
             }
             else
             {
-                doorTMP.text = "Open";
+                doorTMP.text = "Open [F]";
                 OpenDoor();
             }
         }

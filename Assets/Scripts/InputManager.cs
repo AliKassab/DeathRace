@@ -6,13 +6,13 @@ namespace UnityTutorial.Manager
     public class InputManager : MonoBehaviour
     {
         [SerializeField] private PlayerInput playerInput;
-
         public Vector2 Move { get; private set; }
         public Vector2 Look { get; private set; }
         public bool Run { get; private set; }
 
         public bool TelepathyMode { get; private set; }
         public bool Interaction { get; private set; }
+        public bool Close {  get; private set; }
 
         private InputActionMap currentMap;
         private InputAction moveAction;
@@ -20,9 +20,11 @@ namespace UnityTutorial.Manager
         private InputAction runAction;
         private InputAction telepathyMode;
         private InputAction interaction;
+        private InputAction closeAction;
 
         private bool telepathyPressedThisFrame;
         private bool interactionPressedThisFrame;
+        private bool closePressedThisFrame;
 
         private void Awake()
         {
@@ -32,18 +34,22 @@ namespace UnityTutorial.Manager
             runAction = currentMap.FindAction("Run");
             telepathyMode = currentMap.FindAction("TelepathyMode");
             interaction = currentMap.FindAction("Interaction");
+            closeAction = currentMap.FindAction("Close");
 
             moveAction.performed += onMove;
             lookAction.performed += onLook;
             runAction.performed += onRun;
             telepathyMode.performed += onTelepathyMode;
             interaction.performed += onInteraction;
+            closeAction.performed += onClose;
 
             moveAction.canceled += onMove;
             lookAction.canceled += onLook;
             runAction.canceled += onRun;
             telepathyMode.canceled -= onTelepathyMode;
             interaction.canceled -= onInteraction;
+            closeAction.canceled += onClose;
+
         }
 
         private void onMove(InputAction.CallbackContext context)
@@ -73,6 +79,12 @@ namespace UnityTutorial.Manager
             interactionPressedThisFrame = true;
         }
 
+        private void onClose(InputAction.CallbackContext context)
+        {
+            Close = true;
+            closePressedThisFrame = true;
+        }
+
         private void OnEnable()
         {
             currentMap.Enable();
@@ -98,6 +110,16 @@ namespace UnityTutorial.Manager
             if (interactionPressedThisFrame)
             {
                 interactionPressedThisFrame = false;
+                return true;
+            }
+            return false;
+        }
+
+        public bool IsClosePressedThisFrame()
+        {
+            if (closePressedThisFrame)
+            {
+                closePressedThisFrame = false;
                 return true;
             }
             return false;

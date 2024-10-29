@@ -58,7 +58,7 @@ namespace UnityTutorial.PlayerControl
 
             currentVelocity = Vector2.Lerp(currentVelocity, inputManager.Move * targetSpeed, animationBlendSpeed * Time.deltaTime);
 
-            Vector3 velocityDiff = new Vector3(currentVelocity.x - rb.velocity.x, 0f, currentVelocity.y - rb.velocity.z);
+            Vector3 velocityDiff = new Vector3(currentVelocity.x - rb.linearVelocity.x, 0f, currentVelocity.y - rb.linearVelocity.z);
             rb.AddForce(transform.TransformVector(velocityDiff), ForceMode.VelocityChange);
 
             animator.SetFloat(xVelhash, currentVelocity.x);
