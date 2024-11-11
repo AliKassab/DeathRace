@@ -2,22 +2,20 @@ using UnityEngine;
 
 public class StrugglingFlickerWithFixedAudio : MonoBehaviour
 {
-    public Light flickeringLight; // Assign your spotlight here
-    public AudioSource audioSource; // Assign your audio source here
-    public float minIntensity = 0f; // Minimum light intensity
-    public float maxIntensity = 1.5f; // Maximum light intensity
-    public float flickerDuration = 0.1f; // Duration for light flickering on
-    public float struggleDuration = 0.2f; // Duration when the light struggles to turn on
-    public float offDuration = 0.2f; // Duration when the light is off
-    public float fixedVolume = 1f; // Fixed volume for the buzzing sound
+    [SerializeField] Light flickeringLight; // Assign your spotlight here
+    [SerializeField] AudioSource audioSource; // Assign your audio source here
+    [SerializeField] float minIntensity = 0f; // Minimum light intensity
+    [SerializeField] float maxIntensity = 1.5f; // Maximum light intensity
+    [SerializeField] float flickerDuration = 0.1f; // Duration for light flickering on
+    [SerializeField] float struggleDuration = 0.2f; // Duration when the light struggles to turn on
+    [SerializeField] float offDuration = 0.2f; // Duration when the light is off
+    [SerializeField] float fixedVolume = 1f; // Fixed volume for the buzzing sound
 
     private void Start()
     {
         // Set the fixed volume
         if (audioSource != null)
-        {
             audioSource.volume = fixedVolume;
-        }
 
         StartCoroutine(Flicker());
     }
