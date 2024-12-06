@@ -354,7 +354,7 @@ namespace DialogueEditor
                 m_scrollIndex++;
 
                 // Finished?
-                if (m_scrollIndex >= m_targetScrollTextCount)
+                if (m_scrollIndex >= m_targetScrollTextCount && !ConversationManager.Instance.AudioPlayer.isPlaying)
                 {
                     SetState(eState.TransitioningOptionsOn);
                 }

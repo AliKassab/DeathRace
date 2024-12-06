@@ -68,12 +68,14 @@ namespace UnityTutorial.Manager
         private void ActivateTelepathy()
         {
             isTelepathyActive = true;
+            staminaManager.staminaBar.gameObject.SetActive(true);
             StartCoroutine(cameraShake.Shake(cameraShakeDuration, cameraShakeMagnitude, telepathyProfile, volume));
         }
 
         private void DeactivateTelepathy()
         {
-            isTelepathyActive = false;
+            isTelepathyActive = false; 
+            staminaManager.staminaBar.gameObject.SetActive(false);
             StartCoroutine(cameraShake.Shake(cameraShakeDuration, cameraShakeMagnitude, originalProfile, volume));
         }
     }

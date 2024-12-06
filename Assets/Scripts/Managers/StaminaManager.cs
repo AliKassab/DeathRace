@@ -11,6 +11,8 @@ public class StaminaManager
     [SerializeField] private float staminaRechargeRate = 5f;
     [SerializeField] private RectTransform staminaImage;
 
+    public Image staminaBar;
+
     private Vector3 originalScale;
     private Vector3 originalPosition;
 
